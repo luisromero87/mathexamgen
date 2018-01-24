@@ -1,3 +1,10 @@
+
+# Generador de exámenes basado en [examgen](https://github.com/thearn/examgen)
+
+# Atribuciones
+
+Fork del fantástico trabajo de [Thearn](https://github.com/thearn). Gracias Tristan
+
 Math exam generator
 ====================
 
