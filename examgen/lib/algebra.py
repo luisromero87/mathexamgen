@@ -6,7 +6,7 @@ import random
 from helper import alpha, digits_nozero, get_coefficients, render, shuffle
 
 
-def make_quadratic_eq(var="x", rhs = None, integer=[0, 1]):
+def make_quadratic_eq(var=["x", "y"], rhs = None, integer=[0, 1]):
     """
     Generates quadratic equation problem expression and
     set of solutions
@@ -14,8 +14,8 @@ def make_quadratic_eq(var="x", rhs = None, integer=[0, 1]):
     x : charector for the variable to be solved for. defaults to "x".
                             OR
         a list of possible charectors. A random selection will be made from them.
-    
-    rhs : value to set for the right-hand side. If not given, the 
+
+    rhs : value to set for the right-hand side. If not given, the
           right-hand side will be a randomly generated polynomial expression
           of degree <= 2, in the same variable.
 
@@ -41,7 +41,7 @@ def make_quadratic_eq(var="x", rhs = None, integer=[0, 1]):
     if rhs == None:
         c4, c5, c6 = get_coefficients(3, first_nonzero=False)
         rhs = c4*var**2 + c5*var + c6
-    
+
     e = sympy.Eq(lhs, rhs)
     pvar = str(var)
     sols = ', '.join([pvar+" = " + sympy.latex(ex) for ex in sympy.solve(e, var)])
@@ -59,7 +59,7 @@ def make_linear_eq(x="", rhs = None, var_coeffs=True):
                             OR
         a list of possible charectors. A random selection will be made from them.
 
-    rhs : value to set for the right-hand side. If not given, the 
+    rhs : value to set for the right-hand side. If not given, the
           right-hand side will be a randomly generated linear expression
 
     var_coeffs : sets whether we want variables as coefficients in the problem.
@@ -73,7 +73,7 @@ def make_linear_eq(x="", rhs = None, var_coeffs=True):
 
     exclude = [x.upper(), x.lower()]
     x = sympy.Symbol(x)
-    c1, c2, c3, c4 = get_coefficients(4, var_coeffs=var_coeffs, reduce=False, 
+    c1, c2, c3, c4 = get_coefficients(4, var_coeffs=var_coeffs, reduce=False,
                                       exclude = exclude)
     lhs = c1*x + c2
     rhs = c3*x + c4
@@ -85,7 +85,7 @@ def make_rational_poly_simplify(var="x"):
     """
     Generates a rational expression of 4 polynomials, to be simplified.
     Example:
-        ( (x**2 + 16*x + 60) / (x**2 - 36)) / 
+        ( (x**2 + 16*x + 60) / (x**2 - 36)) /
         ( (x**2 - 2*x - 63) / (x**2 - 5*x - 36)
 
     x : charector for the variable to be solved for. defaults to random selection
@@ -122,7 +122,3 @@ def make_rational_poly_simplify(var="x"):
 
 if __name__ == "__main__":
     print make_quadratic_eq(["x", "y"])
-
-
-
-

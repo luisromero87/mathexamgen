@@ -23,11 +23,14 @@ digits_nozero = range(-26,26)
 digits_nozero.remove(0)
 
 def shuffle(x):
+    """
+    Reordena una lista de forma aleatoria
+    """
     x = list(x)
     random.shuffle(x)
     return x
 
-def get_coefficients(n, exclude=["x", "X"], first_nonzero=True, var_coeffs=False, 
+def get_coefficients(n, exclude=["x", "X"], first_nonzero=True, var_coeffs=False,
                         reduce=True):
     """
     Helper function to generate "good" coefficients for problems
@@ -53,14 +56,10 @@ def get_coefficients(n, exclude=["x", "X"], first_nonzero=True, var_coeffs=False
 def render(expr, lhs=""):
     """
     Puts $ at the beginning and end of a latex expression.
-    lhs : if we want to render something like: $x = 3 + 5$, set the left hand 
+    lhs : if we want to render something like: $x = 3 + 5$, set the left hand
           side here
     """
     left = "$$"
     if lhs:
         left = "$$%s =" % lhs
     return ''.join([left, sympy.latex(expr), "$$"])
-
-
-
-
