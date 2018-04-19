@@ -3,7 +3,7 @@ import sympy
 from sympy.parsing.sympy_parser import parse_expr
 from sympy.polys.polytools import degree
 import random
-from helper import alpha, digits_nozero, get_coefficients, render, shuffle
+from .helper import alpha, digits_nozero, get_coefficients, render, shuffle
 
 def poly1(x):
     vals = sum([k*x**i for i,k in enumerate(reversed(get_coefficients(2)))])
@@ -30,7 +30,7 @@ def make_find_derivative_at_value(var="x", rhs = "4"):
         var = sympy.Symbol(var)
     elif isinstance(var, list):
         var = sympy.Symbol(random.choice(var))
-    df = sympy.prod([var - random.choice(digits_nozero) for i in xrange(random.randint(2,3))])
+    df = sympy.prod([var - random.choice(digits_nozero) for i in range(random.randint(2,3))])
     f = poly3(var)
     df = int(sympy.diff(f, var).evalf(subs={var:int(rhs)}))
 
@@ -46,7 +46,7 @@ def make_horizontal_tangents(var="x"):
         var = sympy.Symbol(var)
     elif isinstance(var, list):
         var = sympy.Symbol(random.choice(var))
-    df = sympy.prod([var - random.choice(digits_nozero) for i in xrange(random.randint(2,3))])
+    df = sympy.prod([var - random.choice(digits_nozero) for i in range(random.randint(2,3))])
     f = sympy.integrate(df, var)
     eqn = sympy.Eq(sympy.diff(f, var),0 )
     fx = "f \\left(%s \\right)" % str(var)
@@ -176,9 +176,9 @@ def make_poly_ratio_limit(var="x", s=[0, 1, 2]):
     elif s == 0: # zero
         p1 = random.randint(2, 4)
         p2 = random.randint(p1, p1 + 2)
-    select = [shuffle(digits_nozero)[0]] + shuffle(range(10)[:p1-1])
+    select = [shuffle(digits_nozero)[0]] + shuffle(list(range(10))[:p1-1])
     num = sum([(k+1)*var**i for i, k in enumerate(select)])
-    select = [shuffle(digits_nozero)[0]] + shuffle(range(10)[:p2-1])
+    select = [shuffle(digits_nozero)[0]] + shuffle(list(range(10))[:p2-1])
     denom = sum([(k+1)*var**i for i, k in enumerate(select)])
     e = num / denom
     s = sympy.limit(e, var, sympy.oo)
@@ -187,4 +187,4 @@ def make_poly_ratio_limit(var="x", s=[0, 1, 2]):
     return render(e), render(s)
 
 if __name__ == "__main__":
-    print make_poly_ratio_limit(["x", "y"])
+    print(make_poly_ratio_limit(["x", "y"]))

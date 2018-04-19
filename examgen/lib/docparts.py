@@ -3,8 +3,8 @@
 def doc_parts(title="", author=""):
     start="""
     \documentclass{article}
-    \usepackage{amsfonts}
-    \usepackage{amsmath,multicol,eso-pic}
+    \\usepackage{amsfonts}
+    \\usepackage{amsmath,multicol,eso-pic}
     \\begin{document}
     """
 
@@ -126,4 +126,4 @@ def problem(instructions, problem, solution, points=1):
     return code
 
 if __name__ == "__main__":
-    print problem("test", "fasd", "asdfasd", 10)
+    print(problem("test", "fasd", "asdfasd", 10))

@@ -12,7 +12,7 @@ Fork del fantástico trabajo de [Thearn](https://github.com/thearn). Gracias Tri
   study groups, etc.
 
   ## Requirements
-  - Python 2.7 (Python 3 support coming soon)
+  - Python 3
   - Sympy
   - LaTeX
 

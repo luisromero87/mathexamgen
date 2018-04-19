@@ -3,7 +3,7 @@ import sympy
 from sympy.parsing.sympy_parser import parse_expr
 from sympy.polys.polytools import degree
 import random
-from helper import alpha, digits_nozero, get_coefficients, render, shuffle
+from .helper import alpha, digits_nozero, get_coefficients, render, shuffle
 
 
 def make_quadratic_eq(var=["x", "y"], rhs = None, integer=[0, 1]):
@@ -100,7 +100,7 @@ def make_rational_poly_simplify(var="x"):
 
     exclude = [var.upper(), var.lower()]
     x = sympy.Symbol(var)
-    select = shuffle(range(-10,-1) + range(1,10))[:6]
+    select = shuffle(list(range(-10,-1)) + list(range(1,10)))[:6]
     e1 = sympy.prod([x - i for i in shuffle(select)[:2]]).expand()
     e2 = sympy.prod([x - i for i in shuffle(select)[:2]]).expand()
     e3 = sympy.prod([x - i for i in shuffle(select)[:2]]).expand()
@@ -121,4 +121,4 @@ def make_rational_poly_simplify(var="x"):
 
 
 if __name__ == "__main__":
-    print make_quadratic_eq(["x", "y"])
+    print(make_quadratic_eq(["x", "y"]))
