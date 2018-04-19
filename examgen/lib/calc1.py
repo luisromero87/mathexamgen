@@ -17,7 +17,9 @@ def poly3(x):
     vals = sum([k*x**i for i,k in enumerate(reversed(get_coefficients(4)))])
     return vals
 
-
+def polyn(x, order=3):
+    vals = sum([k*x**i for i,k in enumerate(reversed(get_coefficients(order)))])
+    return vals
 
 _functions = [sympy.sin, sympy.cos, sympy.tan, sympy.ln, sympy.sqrt, sympy.exp,
               lambda a: a, poly1, poly2, poly3]
@@ -86,6 +88,61 @@ def make_quotient_rule_prob(var="x", partial=False):
         eq = 'd'.join(eq.split("\\partial"))
     eq = "$$" + eq + "$$"
     sol = "$$" + sol + "$$"
+    return eq, sol
+
+
+def make_int_poly_prob(var="x", order=3):
+    """
+    Generates a n-order polynomial to be integrated.
+
+    x : charector for the variable to be solved for. defaults to "x".
+                            OR
+        a list of possible charectors. A random selection will be made from them.
+    n : order of the polynomial or a list of possible orders. Defaults to 3.
+        A random selection will be made from them.
+
+    """
+    if isinstance(var, str):
+        var = sympy.Symbol(var)
+    elif isinstance(var, list):
+        var = sympy.Symbol(random.choice(var))
+    if isinstance(order, list):
+        order = random.choice(order)
+
+    eq = polyn(var,order)
+    
+    sol = sympy.latex(sympy.integrate(eq, var))
+    eq = sympy.latex(sympy.Integral(eq, var))
+    eq = 'd'.join(eq.split("\\partial"))
+    eq = "$$" + eq + "$$"
+    sol = "$$" + sol + " + C $$"
+    return eq, sol
+
+def make_int_pow_prob(var="x", order=3):
+    """
+    Generates a n-order polynomial to be integrated.
+
+    x : charector for the variable to be solved for. defaults to "x".
+                            OR
+        a list of possible charectors. A random selection will be made from them.
+    n : order of the polynomial or a list of possible orders. Defaults to 3.
+        A random selection will be made from them.
+
+    """
+    if isinstance(var, str):
+        var = sympy.Symbol(var)
+    elif isinstance(var, list):
+        var = sympy.Symbol(random.choice(var))
+    if isinstance(order, list):
+        order = random.choice(order)
+
+    eq = sympy.root(var,order)
+    
+    sol = sympy.latex(sympy.integrate(eq, var))
+    eq = sympy.latex(sympy.Integral(eq, var))
+    eq = 'd'.join(eq.split("\\partial"))
+    eq = "$$" + eq + "$$"
+    sol = "$$" + sol + " + C $$"
     return eq, sol
 
 
