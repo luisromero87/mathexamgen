@@ -130,13 +130,55 @@ def make_int_pow_prob(var="x", order=3):
 
     """
     if isinstance(var, str):
+        var = sympy.Symbol(var, positive=True)
+    elif isinstance(var, list):
+        var = sympy.Symbol(random.choice(var), positive=True)
+    if isinstance(order, list):
+        order = random.choice(order)
+    eq = 0;
+    sol = 0;
+    length = random.randint(1,3)
+    for i in range(1,length+1):
+        a = random.randint(1,10)*random.choice([-1,1])
+        b = random.randint(1,10)
+        n = random.randint(1,5)
+        while (not n%order):
+            n = random.randint(1,5)
+        if (True):
+            sign = random.choice([-1,1])
+            eq += sympy.Rational(a,b)*(var**sympy.Rational(n,order))**sign
+            sol+= sympy.Rational(a*(n*sign+order),b*order)*(var**sympy.Rational(n*sign+order,order))
+        else:
+            eq += (sympy.Rational(a,b)*sympy.root(var**n,order))**random.choice([-1,1])
+    
+    sol = sympy.latex(sol)
+    eq = sympy.latex(sympy.Integral(eq, var))
+    eq = 'd'.join(eq.split("\\partial"))
+    eq = "$$" + eq + "$$"
+    sol = "$$" + sol + " + C $$"
+    return eq, sol
+
+def make_int_sust_prob(var="x"):
+    """
+    Generates a n-order polynomial to be integrated.
+
+    x : charector for the variable to be solved for. defaults to "x".
+                            OR
+        a list of possible charectors. A random selection will be made from them.
+    n : order of the polynomial or a list of possible orders. Defaults to 3.
+        A random selection will be made from them.
+
+    """
+    if isinstance(var, str):
         var = sympy.Symbol(var)
     elif isinstance(var, list):
         var = sympy.Symbol(random.choice(var))
-    if isinstance(order, list):
-        order = random.choice(order)
-
-    eq = sympy.root(var,order)
+    func1 = random.choice(_functions)
+    func2 = random.choice(_functions)
+    g = func2(var)
+    f = func1(g)
+    dg = sympy.diff(g,var)
+    eq = f*dg
     
     sol = sympy.latex(sympy.integrate(eq, var))
     eq = sympy.latex(sympy.Integral(eq, var))
